@@ -1,25 +1,30 @@
 How many years of Web development experience do you have?
-
+10+ years
 
 How many years of JavaScript experience do you have?
-
+8 years
 
 How many years of Ruby experience do you have?
-
+3 months
 
 How many years of Rails development experience do you have?
-
+-
 
 What are your opinions on Agile software development?
-
+It is a great practice and methodology that allowed software developers and their clients to move from a one-directional
+work style to an ever evolving close collaboration that ensures that the right software is build in the most efficient manner
+with customer needs in mind. I enjoy practicing it and I think that the beauty of it is that teams can customize the framework
+for themselves.
 
 TDD or BDD?
-
+I think they are not mutually exclusive, but I see BDD as an addition on top of TDD.
+I am definitely up for using holistic end-to-end scenarios in my tests always, so in that regard - BDD.
 
 What are you looking for in a job?
-
+Disciplined professional team to work with, some degree of flexiblity and achieving goals :)
 
 Are you legal to work in the US?
-
+Yes, I am a US citizen
 
 When can you start?
+Immediately

@@ -1,0 +1,14 @@
+Hello Sir/Madam,
+
+My name is Alexander Sitnikov (also go by Sasha).
+It is my pleasure to apply for the position of Software Engineer at Hedgeye.
+I am an experienced programmer with multi-stack expertise; I consider myself a generalist with specialism in back-end.
+I have a proven record of learning new technology quickly and I have worked remotely before.
+Althought Ruby is not my main programming language , I believe all necessary skills to master it quickly to benefit the company.
+I am capable of making independent decisions while taking customers' needs into account and working closely with my team.
+I have worked on scalable solutions and maintaining a clean, well-designed and well-tested codebase is my passion.
+
+Thank you for your attention.
+
+Best,
+Alexander
