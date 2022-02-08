@@ -1,0 +1,22 @@
+This is a note about what I refactored and why.
+
+I did not squash the commits so they should give a good run-down on what incremental changes have been made.
+But I'll repeat the ideas I had when first looked at the code here:
+- It was obvious that the code for replacing %CODE% and %ALTCODE% was very similar and a possible duplication
+So I extracted two private functions first, then gradually merged them into one but more generic. That included
+replacing some hard-coded numbers with variables.
+- Then I worked on understanding precisely how the functionality of the module worked. I noticed that I could add more 
+tests while investigating the module's behavior and so I did.
+Where the requirements weren't clear (code value is shorter than 8), I made an assumption and sort of sealed it 
+by adding a test.
+- I added some validation as it was missing.
+- I removed some string copying as, as I read, Ruby always passes parameters by value only.
+- I created a TemplateFiller class since it seemed quite appropriate with a well-defined single task
+of replacing patterns with values.
+- Overall, I tried to keep the class and methods as small as reasonably possible
+- Also, I hope I did a good job placing at similar levels of abstractions
+- I renamed several variables and methods with the rule: the longer the scope, the longer the name
+
+- There is still room for further refactoring -> where does validation go? Are there any strategies for making altcode?
+possibly extracting contents of the template module into different files.
+Also, maybe adding fill method that'd take an array of key-value pairs.
