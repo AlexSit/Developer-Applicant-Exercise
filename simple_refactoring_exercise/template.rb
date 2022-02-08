@@ -2,7 +2,7 @@ module Template
   MINIMUM_CODE_LENGTH = 8
 
   def template(template, code)
-    validate_template(template)
+    validate_source_template(template)
     validate_code(code)
 
     altcode = transform_code_into_altcode(code)
@@ -14,44 +14,61 @@ module Template
 
   private
 
-  def validate_template(template)
+  def validate_source_template(template)
     raise ArgumentError.new(
       "template must not be an empty string"
     ) if !template || template.empty?
   end
 
-  def validate_code(req_id)
-    raise ArgumentError.new(
-      "req_id must not be nil"
-    ) if !req_id
+  def validate_code(code)
+    validate_code_is_not_nil(code)
+    validate_code_is_long_enough(code)
+  end
 
+  def validate_code_is_not_nil(code)
     raise ArgumentError.new(
-      "req_id must be at least #{MINIMUM_CODE_LENGTH} characters long, got #{req_id.length}"
-    ) if req_id.length < MINIMUM_CODE_LENGTH
+      "code must not be nil"
+    ) if !code
+  end
+
+  def validate_code_is_long_enough(code)
+    raise ArgumentError.new(
+      "code must be at least #{MINIMUM_CODE_LENGTH} characters long, got #{code.length}"
+    ) if code.length < MINIMUM_CODE_LENGTH
   end
 
   def transform_code_into_altcode(code)
     code[0..4] + "-" + code[5..7]
   end
 
-  def substitute_first_occurence(template, keyword, value) # 3 parameters, make a class
-    template_split_begin = template.index(keyword) # choose better names
+  # NOTE: I could have used built-in regex/replace functions and although this can be done easily
+  # I'd rather demonstrate my refactoring using this "manual" template transformation
+  def substitute_first_occurence(template, match_pattern, replacement)
+    template_split_begin = template.index(match_pattern)
     return template if template_split_begin.nil?
 
-    template_split_end = template_split_begin + keyword.length
+    template_split_end = template_split_begin + match_pattern.length
 
-    template_part_one = ''
-    template_part_two =
-      String.new(template[template_split_end..template.length])
+    template_part_one = make_template_part_one(template, template_split_begin)
+    template_part_two = make_template_part_two(template, template_split_end)
 
-    template_part_one_exists = template_split_begin > 0
-    if template_part_one_exists # make a note about using built-in functions
-      template_part_one_end_index = template_split_begin - 1
-      template_part_one =
-        String.new(template[0..(template_part_one_end_index)])
-    end
+    template_part_one + replacement + template_part_two
+  end
 
-    template_part_one + value + template_part_two
+  def make_template_part_one(template, template_split_begin)
+    template_part_one_is_empty = template_split_begin == 0
+    return '' if template_part_one_is_empty
+
+    template_part_one_end_index = template_split_begin - 1
+    substring(template, 0, template_part_one_end_index)
+  end
+
+  def make_template_part_two(template, template_split_end)
+    substring(template, template_split_end, template.length)
+  end
+
+  def substring(str, start_index, end_index)
+    String.new(str[start_index..end_index])
   end
 
 end
