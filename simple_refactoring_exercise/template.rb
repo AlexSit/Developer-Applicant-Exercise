@@ -24,12 +24,18 @@ module Template
 
   def validate_req_id(req_id)
     raise ArgumentError.new(
+      "req_id must not be nil"
+    ) if !req_id
+
+    raise ArgumentError.new(
       "req_id must be at least #{MINIMUM_CODE_LENGTH} characters long, got #{req_id.length}"
     ) if req_id.length < MINIMUM_CODE_LENGTH
   end
 
   def substitute_first_occurence(template, keyword, value) # 3 parameters, make a class
     template_split_begin = template.index(keyword) # choose better names
+    return template if template_split_begin.nil?
+
     template_split_end = template_split_begin + keyword.length
 
     template_part_one = ''
