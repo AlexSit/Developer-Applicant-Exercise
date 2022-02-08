@@ -15,4 +15,18 @@ describe Template do
     expect(template('%ALTCODE%%CODE%', '5678901234')).to eq '56789-0125678901234'
   end
 
+  it "should throw an exception when %CODE% has fewer than 8 characters" do
+    expect { template('Code is %CODE%; alt code is %ALTCODE%', '1234567') }.to raise_error(ArgumentError)
+  end
+
+  # empty template
+
+  # no %CODE% and/or no %ALTCODE%
+
+  # empty strings %CODE% and/or no %ALTCODE%
+
+  # multiple %CODE% and %ALTCODE%
+
+  
+
 end
