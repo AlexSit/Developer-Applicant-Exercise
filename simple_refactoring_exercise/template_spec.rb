@@ -19,7 +19,13 @@ describe Template do
     expect { template('Code is %CODE%; alt code is %ALTCODE%', '1234567') }.to raise_error(ArgumentError)
   end
 
-  # empty template
+  it "should throw an exception when template is nil" do
+    expect { template(nil, '5678901234') }.to raise_error(ArgumentError)
+  end
+
+  it "should throw an exception when template is an empty string" do
+    expect { template('', '5678901234') }.to raise_error(ArgumentError)
+  end
 
   # no %CODE% and/or no %ALTCODE%
 

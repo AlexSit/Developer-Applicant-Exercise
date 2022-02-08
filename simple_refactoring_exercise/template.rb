@@ -2,9 +2,8 @@ module Template
   MINIMUM_CODE_LENGTH = 8
 
   def template(source_template, req_id)
-    raise ArgumentError.new(
-      "req_id must be at least #{MINIMUM_CODE_LENGTH} characters long, got #{req_id.length}"
-    ) if req_id.length < MINIMUM_CODE_LENGTH
+    validate_template(source_template)
+    validate_req_id(req_id)
 
     template = String.new(source_template)
     code = String.new(req_id)
@@ -15,7 +14,19 @@ module Template
     template
   end
 
-  private 
+  private
+
+  def validate_template(template)
+    raise ArgumentError.new(
+      "template must not be an empty string"
+    ) if !template || template.empty?
+  end
+
+  def validate_req_id(req_id)
+    raise ArgumentError.new(
+      "req_id must be at least #{MINIMUM_CODE_LENGTH} characters long, got #{req_id.length}"
+    ) if req_id.length < MINIMUM_CODE_LENGTH
+  end
 
   def substitute_first_occurence(template, keyword, value) # 3 parameters, make a class
     template_split_begin = template.index(keyword) # choose better names
