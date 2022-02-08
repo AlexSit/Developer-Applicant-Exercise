@@ -19,27 +19,27 @@ module Template
     # NOTE: I could have used built-in regex/replace functions and although this can be done easily
     # I'd rather demonstrate my refactoring using this "manual" template transformation
     def substitute_first_occurence(match_pattern, replacement)
-      template_split_begin = @template.index(match_pattern)
-      return @template if template_split_begin.nil?
+      split_begin = @template.index(match_pattern)
+      return @template if split_begin.nil?
 
-      template_split_end = template_split_begin + match_pattern.length
+      split_end = split_begin + match_pattern.length
 
-      template_part_one = make_template_part_one(template_split_begin)
-      template_part_two = make_template_part_two(template_split_end)
+      part_one = make_template_part_one(split_begin)
+      part_two = make_template_part_two(split_end)
 
-      template_part_one + replacement + template_part_two
+      part_one + replacement + part_two
     end
 
-    def make_template_part_one(template_split_begin)
-      template_part_one_is_empty = template_split_begin == 0
-      return '' if template_part_one_is_empty
+    def make_template_part_one(split_begin)
+      part_one_is_empty = split_begin == 0
+      return '' if part_one_is_empty
 
-      template_part_one_end_index = template_split_begin - 1
-      substring(@template, 0, template_part_one_end_index)
+      part_one_end_index = split_begin - 1
+      substring(@template, 0, part_one_end_index)
     end
 
-    def make_template_part_two(template_split_end)
-      substring(@template, template_split_end, @template.length)
+    def make_template_part_two(split_end)
+      substring(@template, split_end, @template.length)
     end
 
     def substring(str, start_index, end_index)
