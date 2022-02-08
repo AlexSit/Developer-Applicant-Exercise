@@ -1,13 +1,11 @@
 module Template
   MINIMUM_CODE_LENGTH = 8
 
-  def template(source_template, req_id)
-    validate_template(source_template)
-    validate_req_id(req_id)
+  def template(template, code)
+    validate_template(template)
+    validate_code(code)
 
-    template = String.new(source_template)
-    code = String.new(req_id)
-    altcode = code[0..4] + "-" + code[5..7]
+    altcode = transform_code_into_altcode(code)
 
     template = substitute_first_occurence(template, "%CODE%", code)
     template = substitute_first_occurence(template, "%ALTCODE%", altcode)
@@ -22,7 +20,7 @@ module Template
     ) if !template || template.empty?
   end
 
-  def validate_req_id(req_id)
+  def validate_code(req_id)
     raise ArgumentError.new(
       "req_id must not be nil"
     ) if !req_id
@@ -30,6 +28,10 @@ module Template
     raise ArgumentError.new(
       "req_id must be at least #{MINIMUM_CODE_LENGTH} characters long, got #{req_id.length}"
     ) if req_id.length < MINIMUM_CODE_LENGTH
+  end
+
+  def transform_code_into_altcode(code)
+    code[0..4] + "-" + code[5..7]
   end
 
   def substitute_first_occurence(template, keyword, value) # 3 parameters, make a class
@@ -42,11 +44,14 @@ module Template
     template_part_two =
       String.new(template[template_split_end..template.length])
 
-    if template_split_begin > 0 # make a note about using built-in functions
+    template_part_one_exists = template_split_begin > 0
+    if template_part_one_exists # make a note about using built-in functions
+      template_part_one_end_index = template_split_begin - 1
       template_part_one =
-        String.new(template[0..(template_split_begin-1)]) # -1s
+        String.new(template[0..(template_part_one_end_index)])
     end
 
     template_part_one + value + template_part_two
   end
+
 end
