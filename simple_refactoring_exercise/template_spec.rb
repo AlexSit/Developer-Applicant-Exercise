@@ -11,4 +11,8 @@ describe Template do
     expect(template('%CODE%%ALTCODE%', '5678901234')).to eq '567890123456789-012'
   end
 
+  it "should substitute '%ALTCODE%%CODE%'" do
+    expect(template('%ALTCODE%%CODE%', '5678901234')).to eq '56789-0125678901234'
+  end
+
 end
